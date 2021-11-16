@@ -1,11 +1,11 @@
 const utils = require('nps-utils');
 
 const getSeries = (args) => utils.series.nps(...args);
-const names = ['util', 'crud-request', 'crud', 'crud-typeorm'];
+const names = ['nestjsx-util', 'nestjsx-crud-request', 'nestjsx-crud', 'nestjsx-crud-typeorm'];
 
 const getBuildCmd = (pkg) => {
   const str = 'npx lerna run build';
-  const scoped = (name) => `--scope @nestjsx/${name}`;
+  const scoped = (name) => `--scope @liga/${name}`;
   return pkg ? `${str} ${scoped(pkg)}` : getSeries(names.map((name) => `build.${name}`));
 };
 

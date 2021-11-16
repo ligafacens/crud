@@ -9,35 +9,34 @@ import {
   QueryOptions,
 } from '@nestjsx/crud';
 import {
+  ComparisonOperator,
   ParsedRequestParams,
   QueryFilter,
   QueryJoin,
   QuerySort,
   SCondition,
   SConditionKey,
-  ComparisonOperator,
 } from '@nestjsx/crud-request';
 import {
-  ClassType,
   hasLength,
   isArrayFull,
+  isNil,
+  isNull,
   isObject,
   isUndefined,
   objKeys,
-  isNil,
-  isNull,
 } from '@nestjsx/util';
 import { oO } from '@zmotivat0r/o0';
-import { plainToClass } from 'class-transformer';
+import { ClassConstructor, plainToClass } from 'class-transformer';
 import {
   Brackets,
+  ConnectionOptions,
+  DeepPartial,
+  EntityMetadata,
   ObjectLiteral,
   Repository,
   SelectQueryBuilder,
-  DeepPartial,
   WhereExpression,
-  ConnectionOptions,
-  EntityMetadata,
 } from 'typeorm';
 
 interface IAllowedRelation {
@@ -83,8 +82,8 @@ export class TypeOrmCrudService<T> extends CrudService<T> {
     return this.repo.count.bind(this.repo);
   }
 
-  protected get entityType(): ClassType<T> {
-    return this.repo.target as ClassType<T>;
+  protected get entityType(): ClassConstructor<T> {
+    return this.repo.target as ClassConstructor<T>;
   }
 
   protected get alias(): string {
